@@ -10,7 +10,8 @@
   z-index: 30;
   text-align: center;
   overflow-y: scroll;
-  height: 500px;
+  height: auto;
+  max-height: 500px;
 }
 
 .delete {
@@ -56,7 +57,7 @@
 }
 
 .total {
-  /* background-color: gray; */
+  margin-top: 40px;
   text-align: right;
 }
 

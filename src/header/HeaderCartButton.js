@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import classes from './HeaderCartButton.module.css';
 import Cart from '../cart/Cart';
+import cartContext from '../store/cart-Context';
 
 const HeaderCartButton = () => {
+
+  const cartCtx = useContext(cartContext);
+
+  let cartQuantity = 0;
+
+  cartCtx.item.forEach((item) => {
+    cartQuantity += item.quantity;
+  })
 
   const [showCartItem, setShowCartItem] = useState(false);
 
@@ -15,7 +24,7 @@ const HeaderCartButton = () => {
     <React.Fragment>
       <button className={classes.button} onClick={cartItemHandler}>
         <span>Cart</span>
-        <span>0</span>
+        <span>{cartQuantity}</span>
       </button>
       {showCartItem && <Cart />}
     </React.Fragment>
