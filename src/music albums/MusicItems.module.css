@@ -1,0 +1,26 @@
+.div {
+    /* border: 2px solid black; */
+    flex-basis: 40%;
+    margin-bottom: 50px;
+}
+
+.div img{
+    display: block;
+    margin: auto;
+    margin-bottom: 60px;
+    transform-origin: center center;
+    object-fit: cover;
+}
+
+.div h2 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.div span {
+    text-align: left;
+    padding: 10px 20px 10px 20px;
+    border: 2px solid orange;
+    border-radius: 5px;
+    margin-left: -120px;
+}

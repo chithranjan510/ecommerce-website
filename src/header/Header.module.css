@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  align-items: center;
+  background-color: black;
+  padding: 20px;
+  border-bottom: 3px solid rgba(109, 219, 255, 0.854);
+  justify-content: center;
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+}
+
+.header nav {
+  flex-basis: 85%;
+}
+
+.header li {
+  color: white;
+  list-style: none;
+  display: inline;
+  margin: 0 100px 0 0;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+
