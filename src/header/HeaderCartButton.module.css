@@ -1,11 +1,13 @@
-.headerCartButton {
+.button {
     border: 2px solid orange;
     border-radius: 5px;
     color: rgb(238, 252, 90);
     align-items: center;
+    background-color: black;
+    margin-right: 50px;
 }
 
-.headerCartButton span {
+.button span {
     font-weight: bold;
     font-size: 30px;
     margin: 20px;

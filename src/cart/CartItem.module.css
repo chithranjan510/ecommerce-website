@@ -1,0 +1,33 @@
+.div {
+    display: flex;
+    justify-content: space-around;
+    /* border: 2px solid gray; */
+    /* background-color: #f4f4f4; */
+    margin: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+.div span {
+    margin: 20px;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    flex: 1;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    padding: 10px 0 10px 0;
+}
+
+.div img {
+    display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    flex: 2;
+}
+
+.div button {
+    flex: 1;
+    margin-left: 10px;
+    font-size: 20px;
+}

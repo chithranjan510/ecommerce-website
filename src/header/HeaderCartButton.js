@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classes from './HeaderCartButton.module.css';
+import Cart from '../cart/Cart';
 
 const HeaderCartButton = () => {
+
+  const [showCartItem, setShowCartItem] = useState(false);
+
+  const cartItemHandler = () => {
+    setShowCartItem(true);
+  }
+
   return (
-    <div className={classes.headerCartButton}>
-      <span>Cart</span>
-      <span>0</span>
-    </div>
+    <React.Fragment>
+      <button className={classes.button} onClick={cartItemHandler}>
+        <span>Cart</span>
+        <span>0</span>
+      </button>
+      {showCartItem && <Cart />}
+    </React.Fragment>
   );
 };
 
