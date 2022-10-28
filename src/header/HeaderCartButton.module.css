@@ -7,6 +7,10 @@
     margin-right: 50px;
 }
 
+.button:active {
+    transform: scale(0.95);
+}
+
 .button span {
     font-weight: bold;
     font-size: 30px;

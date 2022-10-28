@@ -20,13 +20,17 @@ const HeaderCartButton = () => {
     setShowCartItem(true);
   }
 
+  const hideCartItemHandler = () => {
+    setShowCartItem(false);
+  }
+
   return (
     <React.Fragment>
       <button className={classes.button} onClick={cartItemHandler}>
         <span>Cart</span>
         <span>{cartQuantity}</span>
       </button>
-      {showCartItem && <Cart />}
+      {showCartItem && <Cart onClick={hideCartItemHandler}/>}
     </React.Fragment>
   );
 };

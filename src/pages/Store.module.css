@@ -20,3 +20,7 @@ h1 {
   background-color: rgb(111, 255, 195);
   margin-bottom: 50px;
 }
+
+.button:active {
+  transform: scale(0.95);
+}

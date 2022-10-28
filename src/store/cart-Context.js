@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { act } from 'react-dom/test-utils';
 
 // context is created here
 const cartContext = React.createContext({
@@ -26,14 +25,38 @@ const cartReducer = (state, action) => {
     const cartItemIndex = state.item.findIndex((item) => (item.title === action.item.title));
 
     if(cartItemIndex === -1) {
-      console.log('not same');
+      // console.log('not same');
       updatedCartItem = [...updatedCartItem, action.item];
 
       return {item: updatedCartItem, totalAmount: updatedAmount};
     }
     else {
-      console.log('same');
+      // console.log('same');
       updatedCartItem[cartItemIndex].quantity += 0.5;
+
+      return {item: updatedCartItem, totalAmount: updatedAmount}
+    }
+  }
+
+  if(action.type === 'REMOVE') {
+
+    let updatedCartItem = [...state.item];
+
+    const cartItemIndex = state.item.findIndex((item) => (item.title === action.title));
+
+    let updatedAmount = state.totalAmount - updatedCartItem[cartItemIndex].price;
+
+    console.log(cartItemIndex)
+
+    if(updatedCartItem[cartItemIndex].quantity === 1) {
+
+      updatedCartItem = updatedCartItem.filter((item) => (item.title !== action.title))
+
+      return {item: updatedCartItem, totalAmount: updatedAmount};
+    }
+    else {
+
+      updatedCartItem[cartItemIndex].quantity -= 0.5;
 
       return {item: updatedCartItem, totalAmount: updatedAmount}
     }
@@ -49,8 +72,8 @@ export const CartContextProvider = (props) => {
     dispatchedCartState({type: 'ADD', item: item})
   }
 
-  const removeItem = (item) => {
-    dispatchedCartState({type: 'REMOVE', item: item})
+  const removeItem = (title) => {
+    dispatchedCartState({type: 'REMOVE', title: title})
   }
 
   const contextValues = {

@@ -5,7 +5,7 @@ import classes from './Cart.module.css';
 import CartItem from './CartItem';
 import cartContext from '../store/cart-Context';
 
-const Cart = () => {
+const Cart = (props) => {
 
   const cartCtx = useContext(cartContext);
 
@@ -20,7 +20,7 @@ const Cart = () => {
   return ReactDOM.createPortal(
     <div className={classes.overlay}>
       <span className={classes.title}>CART</span>
-      <button className={classes.delete}>X</button>
+      <button className={classes.delete} onClick={props.onClick}>X</button>
       <div className={classes.heading}>
         <span className={classes.item}>ITEM</span>
         <span className={classes.price}>PRICE</span>

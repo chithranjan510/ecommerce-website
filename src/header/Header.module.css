@@ -19,13 +19,16 @@
 }
 
 .header li {
-  color: white;
   list-style: none;
   display: inline;
+}
+
+.header a {
+  text-decoration: none;
+  color: white;
   margin: 0 100px 0 0;
+  padding: 30px 0 30px 0;
   font-weight: bold;
   font-size: 25px;
   font-family: 'Times New Roman', Times, serif;
 }
-
-

@@ -1,17 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import classes from './Header.module.css';
 import HeaderCartButton from './HeaderCartButton';
 
 const Header = () => {
+
   return (
     <React.Fragment>
       <header className={classes.header}>
         <nav>
           <ul>
-            <li>HOME</li>
-            <li>STORE</li>
-            <li>ABOUT</li>
+            <li><Link to='/home'>HOME</Link></li>
+            <li><Link to='/store'>STORE</Link></li>
+            <li><Link to='/about'>ABOUT</Link></li>
           </ul>
         </nav>
         <div>
