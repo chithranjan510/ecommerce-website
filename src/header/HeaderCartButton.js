@@ -1,12 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import classes from './HeaderCartButton.module.css';
 import Cart from '../cart/Cart';
 import cartContext from '../store/cart-Context';
+import showCartContext from '../store/showCart-context';
 
 const HeaderCartButton = () => {
 
   const cartCtx = useContext(cartContext);
+  const showCartCtx = useContext(showCartContext);
 
   let cartQuantity = 0;
 
@@ -14,23 +16,13 @@ const HeaderCartButton = () => {
     cartQuantity += item.quantity;
   })
 
-  const [showCartItem, setShowCartItem] = useState(false);
-
-  const cartItemHandler = () => {
-    setShowCartItem(true);
-  }
-
-  const hideCartItemHandler = () => {
-    setShowCartItem(false);
-  }
-
   return (
     <React.Fragment>
-      <button className={classes.button} onClick={cartItemHandler}>
+      <button className={classes.button} onClick={showCartCtx.showCart}>
         <span>Cart</span>
         <span>{cartQuantity}</span>
       </button>
-      {showCartItem && <Cart onClick={hideCartItemHandler}/>}
+      {showCartCtx.cartState && <Cart onClick={showCartCtx.hideCart}/>}
     </React.Fragment>
   );
 };

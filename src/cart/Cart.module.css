@@ -43,17 +43,17 @@
 }
 
 .item {
-  flex-basis: 49%;
+  flex-basis: 48%;
   text-align: center;
 }
 
 .price {
-  flex-basis: 15%;
+  flex-basis: 16%;
   text-align: left;
 }
 
 .quantity {
-  flex-basis: 36%;
+  flex-basis: 32%;
   text-align: left;
 }
 

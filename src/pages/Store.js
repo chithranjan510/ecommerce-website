@@ -1,22 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import classes from './Store.module.css';
 import MusicAlbums from '../music albums/MusicAlbums';
-// import Cart from '../cart/Cart';
+import Cart from '../cart/Cart';
+import showCartContext from '../store/showCart-context';
+
 
 const Store = (props) => {
-  // const [showCartItem, setShowCartItem] = useState(false);
 
-  // const cartItemHandler = () => {
-  //   setShowCartItem(true);
-  // };
+  const showCartCtx = useContext(showCartContext);
 
   return (
     <section className={classes.section}>
       <h1>The Generics</h1>
       <MusicAlbums productList={props.productList} />
-      {/* {showCartItem && <Cart />} */}
-      {/* <button className={classes.button} onClick={cartItemHandler}>See the cart</button> */}
+      {showCartCtx.cartState && <Cart onClick={showCartCtx.hideCart}/>}
+      <button className={classes.button} onClick={showCartCtx.showCart}>See the cart</button>
     </section>
   );
 };

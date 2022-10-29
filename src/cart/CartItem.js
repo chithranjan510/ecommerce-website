@@ -12,6 +12,8 @@ const CartItem = (props) => {
     cartCtx.removeItem(title);
   }
 
+  // console.log(props.item.imageUrl);
+
   return (
     <React.Fragment>
       <div className={classes.div}>

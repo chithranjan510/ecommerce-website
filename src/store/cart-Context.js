@@ -46,15 +46,18 @@ const cartReducer = (state, action) => {
 
     let updatedAmount = state.totalAmount - updatedCartItem[cartItemIndex].price;
 
-    console.log(cartItemIndex)
+    // console.log(cartItemIndex)
 
     if(updatedCartItem[cartItemIndex].quantity === 1) {
+
+      // console.log('only one');
 
       updatedCartItem = updatedCartItem.filter((item) => (item.title !== action.title))
 
       return {item: updatedCartItem, totalAmount: updatedAmount};
     }
     else {
+      // console.log('more than one');
 
       updatedCartItem[cartItemIndex].quantity -= 0.5;
 
