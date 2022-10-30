@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 import './App.css';
 import Header from './header/Header';
@@ -8,22 +8,22 @@ import Store from './pages/Store';
 import About from './pages/About';
 import ContactUs from './pages/ContactUs';
 import Footer from './footer/Footer';
+import ProductDetail from './pages/ProductDetail';
 import { ShowCartContextProvider } from './store/showCart-context';
+import { ProductContextProvider } from './store/product-context';
 
 function App() {
   const productsArr = [
     {
       title: 'Colors',
       price: 100,
-      imageUrl:
-        'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
+      imageUrl: 'products/Album-1.png',
     },
 
     {
       title: 'Black and white Colors',
       price: 50,
-      imageUrl:
-        'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+      imageUrl: 'products/Album-2.png',
     },
 
     {
@@ -47,7 +47,7 @@ function App() {
         <Header />
       </ShowCartContextProvider>
 
-      <Route path=''>
+      <Route path='/' exact>
         <Redirect to='/home' />
       </Route>
 
@@ -55,11 +55,19 @@ function App() {
         <Home />
       </Route>
 
-      <ShowCartContextProvider>
-        <Route path='/store'>
-          <Store productList={productsArr} />
-        </Route>
-      </ShowCartContextProvider>
+      <Switch>
+        <ProductContextProvider>
+          <ShowCartContextProvider>
+            <Route path='/store' exact>
+              <Store productList={productsArr} />
+            </Route>
+          </ShowCartContextProvider>
+          
+          <Route path='/store/:productId'>
+            <ProductDetail />
+          </Route>
+        </ProductContextProvider>
+      </Switch>
 
       <Route path='/about'>
         <About />

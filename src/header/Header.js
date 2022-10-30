@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import classes from './Header.module.css';
 import HeaderCartButton from './HeaderCartButton';
@@ -13,10 +13,10 @@ const Header = () => {
       <header className={classes.header}>
         <nav>
           <ul>
-            <li><Link to='/home'>HOME</Link></li>
-            <li><Link to='/store'>STORE</Link></li>
-            <li><Link to='/about'>ABOUT</Link></li>
-            <li><Link to='/contact'>CONTACT-US</Link></li>
+            <li><NavLink activeClassName={classes.active} to='/home'>HOME</NavLink></li>
+            <li><NavLink activeClassName={classes.active} to='/store'>STORE</NavLink></li>
+            <li><NavLink activeClassName={classes.active} to='/about'>ABOUT</NavLink></li>
+            <li><NavLink activeClassName={classes.active} to='/contact'>CONTACT</NavLink></li>
           </ul>
         </nav>
         <div>

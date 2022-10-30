@@ -6,10 +6,10 @@ const About = () => {
   return (
     <section className={classes.section}>
       <h1>The Generics</h1>
-      <h2>About</h2>
+      <h2>ABOUT</h2>
       <div>
         <img
-          src='https://prasadyash2411.github.io/ecom-website/img/Band%20Members.png'
+          src='about/about.png'
           alt='Musical Band'
         />
         <p>

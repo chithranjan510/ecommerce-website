@@ -16,7 +16,7 @@ const Home = () => {
   const tourInfoList = tourInfo.map((tour) => (<TourInfo tour={tour} key={Math.random().toString()}/>))
 
   return (
-    <section>
+    <section className={classes.section}>
       <div className={classes.div}>
         <h1>The Generics</h1>
         <button>Get Our Latest Album</button>

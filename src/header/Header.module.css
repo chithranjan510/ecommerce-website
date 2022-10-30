@@ -7,6 +7,7 @@
   padding: 20px;
   border-bottom: 3px solid rgba(109, 219, 255, 0.854);
   justify-content: center;
+  top: 0%;
 }
 
 .header ul {
@@ -21,14 +22,18 @@
 .header li {
   list-style: none;
   display: inline;
+  padding: 30px 0 30px 0;
 }
 
 .header a {
   text-decoration: none;
   color: white;
   margin: 0 100px 0 0;
-  padding: 30px 0 30px 0;
   font-weight: bold;
   font-size: 25px;
   font-family: 'Times New Roman', Times, serif;
+}
+
+.header a.active {
+  border-bottom: 2px solid #e4d317;
 }

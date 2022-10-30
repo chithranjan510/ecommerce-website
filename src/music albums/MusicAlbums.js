@@ -9,10 +9,10 @@ const MusicAlbums = (props) => {
   ));
 
   return (
-    <React.Fragment>
+    <div className={classes.div}>
       <h2>MUSIC</h2>
       <div className={classes.musicList}>{musicItemList}</div>
-    </React.Fragment>
+    </div>
   );
 };
 

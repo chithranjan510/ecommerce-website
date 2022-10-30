@@ -33,8 +33,9 @@ const ContactUs = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className={classes.contact}>
       <h1>The Generics</h1>
+
       <form className={classes.form} onSubmit={onSubmitHandler}>
         <label htmlFor='name'>Name</label>
         <input id='name' type='text' ref={name} />
@@ -46,7 +47,7 @@ const ContactUs = () => {
           <button type='submit'>Submit</button>
         </div>
       </form>
-    </React.Fragment>
+    </div>
   );
 };
 
