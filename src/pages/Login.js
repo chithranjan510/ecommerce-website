@@ -1,21 +1,35 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import classes from './Login.module.css';
 import loginContext from '../store/login-context';
 
 const Login = () => {
-  const loginCtx = useContext(loginContext);
+  const [loginAccount, setCreateAccount] = useState(true);
   const history = useHistory();
+  const loginCtx = useContext(loginContext);
   const email = useRef();
   const password = useRef();
+
+  const createAccountHandler = () => {
+    setCreateAccount((previousState) => {
+      return !previousState;
+    });
+  };
 
   const loginHandler = async (event) => {
     event.preventDefault();
 
+    let url;
+
+    if(loginAccount) {
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCclsjtBcrJCT0ARxC17b2-9U6rTpTkuLY';
+    } else {
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCclsjtBcrJCT0ARxC17b2-9U6rTpTkuLY';
+    }
+
     try {
-      const res = await fetch(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCclsjtBcrJCT0ARxC17b2-9U6rTpTkuLY',
+      const res = await fetch(url,
         {
           method: 'POST',
           body: JSON.stringify({
@@ -30,11 +44,10 @@ const Login = () => {
       );
 
       if (res.ok) {
-        history.replace('/store');
         const data = await res.json();
         localStorage.setItem('tokenId', data.idToken);
         loginCtx.login(data.idToken);
-        // console.log(data);
+        history.replace('/product');
       } else {
         const data = await res.json();
         throw new Error(data.error.message);
@@ -53,8 +66,15 @@ const Login = () => {
         <label htmlFor='password'>Password</label>
         <input id='password' type='password' ref={password} />
         <div>
-          <button type='submit'>Login</button>
+          <button type='submit'>
+            {loginAccount ? 'Login' : 'Create Account'}
+          </button>
         </div>
+        <p onClick={createAccountHandler}>
+          {loginAccount
+            ? 'Create a new Account'
+            : 'Login with existing account'}
+        </p>
       </form>
     </div>
   );

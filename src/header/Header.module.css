@@ -6,7 +6,6 @@
   background-color: black;
   padding: 20px;
   border-bottom: 3px solid rgba(109, 219, 255, 0.854);
-  justify-content: center;
   top: 0%;
   z-index: 1;
 }
@@ -37,4 +36,8 @@
 
 .header a.active {
   border-bottom: 2px solid #e4d317;
+}
+
+.header li.login, li.logout {
+  right: 10%;
 }
