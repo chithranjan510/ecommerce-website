@@ -5,16 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CartContextProvider } from './store/cart-Context';
+import { LoginContextProvider } from './store/login-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CartContextProvider>
+    <LoginContextProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </CartContextProvider>
+    </LoginContextProvider>
   </React.StrictMode>
 );
 

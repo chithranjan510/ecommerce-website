@@ -8,6 +8,7 @@
   border-bottom: 3px solid rgba(109, 219, 255, 0.854);
   justify-content: center;
   top: 0%;
+  z-index: 1;
 }
 
 .header ul {
