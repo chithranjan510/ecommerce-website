@@ -10,7 +10,6 @@ import Login from './pages/Login';
 import ContactUs from './pages/ContactUs';
 import Footer from './footer/Footer';
 import ProductDetail from './pages/ProductDetail';
-import { CartContextProvider } from './store/cart-Context';
 import { ShowCartContextProvider } from './store/showCart-context';
 import { ProductContextProvider } from './store/product-context';
 import loginContext from './store/login-context';
@@ -48,6 +47,10 @@ function App() {
 
   return (
     <React.Fragment>
+      <ShowCartContextProvider>
+        <Header />
+      </ShowCartContextProvider>
+
       <Route path='/' exact>
         <Redirect to='/home' />
       </Route>
@@ -58,26 +61,18 @@ function App() {
 
       <Switch>
         <ProductContextProvider>
-          <CartContextProvider>
-            <ShowCartContextProvider>
-              <Header />
-              <Route path='/product' exact>
-                {loginCtx.isloggedIn && <Store productList={productsArr} />}
-                {!loginCtx.isloggedIn && <Redirect to='/login'/>}
-              </Route>
-            </ShowCartContextProvider>
-          </CartContextProvider>
+          <ShowCartContextProvider>
+            <Route path='/product' exact>
+              {loginCtx.isloggedIn && <Store productList={productsArr} />}
+              {!loginCtx.isloggedIn && <Redirect to='/login' />}
+            </Route>
+          </ShowCartContextProvider>
 
           <Route path='/product/:productId'>
             <ProductDetail />
           </Route>
         </ProductContextProvider>
       </Switch>
-
-      <Route path='/login'>
-        {!loginCtx.isloggedIn && <Login />}
-        {loginCtx.isloggedIn && <Redirect to='/home'/>}
-      </Route>
 
       <Route path='/about'>
         <About />
@@ -87,9 +82,14 @@ function App() {
         <ContactUs />
       </Route>
 
-      <Route path='*'>
-        <Redirect to='home'/>
+      <Route path='/login'>
+        {!loginCtx.isloggedIn && <Login />}
+        {loginCtx.isloggedIn && <Redirect to='/home' />}
       </Route>
+
+      {/* <Route path='*'>
+        <Redirect to='home'/>
+      </Route> */}
 
       <Footer />
     </React.Fragment>

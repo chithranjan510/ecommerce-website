@@ -19,6 +19,7 @@
   border-radius: 5px;
   background-color: rgb(111, 255, 195);
   margin-bottom: 50px;
+  cursor: pointer;
 }
 
 .button:active {

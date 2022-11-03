@@ -35,6 +35,7 @@
     margin-right: 70px;
     margin-bottom: 30px;
     margin-top: -10px;
+    cursor: pointer;
 }
 
 .div button:hover {

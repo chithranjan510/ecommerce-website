@@ -10,6 +10,7 @@ const Store = (props) => {
 
   const showCartCtx = useContext(showCartContext);
 
+
   return (
     <section className={classes.section}>
       <h1>The Generics</h1>

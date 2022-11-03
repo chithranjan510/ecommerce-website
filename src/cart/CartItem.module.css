@@ -20,7 +20,7 @@
 .div img {
     width: 100px;
     height: 100px;
-    object-fit: cover;
+    object-fit: contain;
     flex-basis: 30%;
     border: 2px solid black;
 }

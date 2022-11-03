@@ -12,17 +12,18 @@
 
 .form label {
   display: block;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   font-family: 'Times New Roman', Times, serif;
 }
 
 .form input {
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 1em;
   width: 96%;
   font-size: 18px;
   border-radius: 5px;
+  border-color: rgb(0, 0, 0, 0.2);
 }
 
 .form div {
@@ -33,11 +34,15 @@
   font-size: 30px;
   font-weight: bold;
   margin-top: 30px;
-  padding: 5px 20px 5px 20px;
-  border-radius: 5px;
-  background-color: #5ac3ed;
+  padding: 5px 40px 5px 40px;
+  border-radius: 25px;
+  background-color: #ccc;
   border: none;
   box-shadow: 0 0 10px rgb(255, 222, 58);
+}
+
+.form button:hover {
+  background-color: #5ac3ed;
 }
 
 .form button:active {

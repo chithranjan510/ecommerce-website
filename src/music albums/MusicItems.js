@@ -10,13 +10,15 @@ const MusicItems = (props) => {
   const cartCtx = useContext(cartContext);
   const productCtx = useContext(productContext);
 
-  const addingItemToCartHandler = () => {
-    cartCtx.addItem({
-      title: props.item.title,
-      imageUrl: props.item.imageUrl,
-      price: props.item.price,
-      quantity: 1,
-    });
+  const product = {
+    title: props.item.title,
+    imageUrl: props.item.imageUrl,
+    price: props.item.price,
+    quantity: 1
+  };
+
+  const addingItemToCartHandler = (item) => {
+    cartCtx.addItem(item);
   };
 
   const productDetail = {
@@ -28,14 +30,13 @@ const MusicItems = (props) => {
   };
 
   const productDetailHandler = (item) => {
-    // console.log(item);
     productCtx.changeDetail(item);
   };
 
   return (
     <div className={classes.div}>
       <h2>{props.item.title}</h2>
-      <Link to={`/store/${props.item.title}`}>
+      <Link to={`/product/${props.item.title}`}>
         <img
           src={props.item.imageUrl}
           alt='Music Album'
@@ -43,7 +44,10 @@ const MusicItems = (props) => {
         />
       </Link>
       <span>${props.item.price}</span>
-      <Button title='ADD TO CART' onClick={addingItemToCartHandler} />
+      <Button
+        title='ADD TO CART'
+        onClick={addingItemToCartHandler.bind(null, product)}
+      />
     </div>
   );
 };

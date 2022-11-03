@@ -19,7 +19,7 @@ export const ProductContextProvider = (props) => {
   });
 
   const changeDetailHandler = (item) => {
-    console.log('calledContext');
+    // console.log('calledContext');
     setProduct({
       title: item.title,
       imageUrl: item.imageUrl,

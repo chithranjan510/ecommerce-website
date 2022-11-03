@@ -3,11 +3,13 @@ import { useHistory } from 'react-router-dom';
 
 import classes from './Login.module.css';
 import loginContext from '../store/login-context';
+import cartContext from '../store/cart-Context';
 
 const Login = () => {
   const [loginAccount, setCreateAccount] = useState(true);
   const history = useHistory();
   const loginCtx = useContext(loginContext);
+  const cartCtx = useContext(cartContext);
   const email = useRef();
   const password = useRef();
 
@@ -22,32 +24,34 @@ const Login = () => {
 
     let url;
 
-    if(loginAccount) {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCclsjtBcrJCT0ARxC17b2-9U6rTpTkuLY';
+    if (loginAccount) {
+      url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCclsjtBcrJCT0ARxC17b2-9U6rTpTkuLY';
     } else {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCclsjtBcrJCT0ARxC17b2-9U6rTpTkuLY';
+      url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCclsjtBcrJCT0ARxC17b2-9U6rTpTkuLY';
     }
 
     try {
-      const res = await fetch(url,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            email: email.current.value,
-            password: password.current.value,
-            returnSecureToken: true,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email.current.value,
+          password: password.current.value,
+          returnSecureToken: true,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       if (res.ok) {
         const data = await res.json();
-        localStorage.setItem('tokenId', data.idToken);
-        loginCtx.login(data.idToken);
+        const convertedData = JSON.stringify(data)
+        localStorage.setItem('tokenId', convertedData);
+        loginCtx.login(data);
         history.replace('/product');
+        cartCtx.loginCartHandler();
       } else {
         const data = await res.json();
         throw new Error(data.error.message);
