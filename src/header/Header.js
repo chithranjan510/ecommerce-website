@@ -56,7 +56,7 @@ const Header = () => {
             )}
           </ul>
         </nav>
-        <div>
+        <div className={classes.button}>
           <HeaderCartButton />
         </div>
       </header>

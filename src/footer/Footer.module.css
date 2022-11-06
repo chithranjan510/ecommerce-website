@@ -9,21 +9,20 @@
     font-size: 60px;
     font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
-    flex-basis: 65%;
+    flex-basis: 60%;
     margin-left: 100px;
     color: white;
 }
 
-
-.footer a {
-    margin-right: 40px;
+.links {
+    display: flex;
 }
 
 .footer img {
     width: 40px;
     height: 40px;
     object-fit: cover;
-    margin: 0 20px 0 20px;
+    margin: 0 60px 0 60px;
     text-decoration: none;
     border-radius: 50%;
 }

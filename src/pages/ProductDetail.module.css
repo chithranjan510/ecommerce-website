@@ -1,6 +1,5 @@
 .product {
-    margin: 120px 30px 50px 30px;
-    /* border: 2px solid gray; */
+    margin: 185px 0 105px 500px;
     display: flex;
     align-items: center;
 }
@@ -11,6 +10,12 @@
     float: left;
     height: 300px;
     width: 300px;
+    box-shadow: 0 0 20px #808080;
+    transition: 0.2s;
+}
+
+.product img:hover {
+    transform: scale(1.5);
 }
 
 .detail {

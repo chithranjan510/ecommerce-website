@@ -1,0 +1,22 @@
+.spinner {
+  margin: auto;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  border: 20px solid #ebebeb;
+  animation: spinner 1s linear infinite;
+  border-radius: 50%;
+  border-top: 20px solid #9dff00;
+  border-bottom: 20px solid #9dff00;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

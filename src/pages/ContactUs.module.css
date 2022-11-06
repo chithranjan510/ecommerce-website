@@ -38,11 +38,11 @@
   border-radius: 25px;
   background-color: #ccc;
   border: none;
-  box-shadow: 0 0 10px rgb(255, 222, 58);
+  width: 50%;
 }
 
 .form button:hover {
-  background-color: #5ac3ed;
+  background-color: #06ff8f;
 }
 
 .form button:active {
