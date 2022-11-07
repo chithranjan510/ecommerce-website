@@ -79,7 +79,8 @@ function App() {
           </ShowCartContextProvider>
 
           <Route path='/product/:productId'>
-            <ProductDetail />
+            {loginCtx.isloggedIn && <ProductDetail />}
+            {!loginCtx.isloggedIn && <Redirect to='/login' />}
           </Route>
         </ProductContextProvider>
       </Switch>
