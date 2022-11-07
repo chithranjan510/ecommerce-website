@@ -1,4 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import loginContext from './login-context';
 
 // context is created here
 const cartContext = React.createContext({
@@ -15,6 +18,9 @@ const cartContext = React.createContext({
 
 export const CartContextProvider = (props) => {
 
+  const loginCtx = useContext(loginContext);
+  const history = useHistory();
+
   let userEmail;
   if (localStorage.getItem('tokenId')) {
     userEmail = JSON.parse(localStorage.getItem('tokenId')).email;
@@ -23,15 +29,15 @@ export const CartContextProvider = (props) => {
   // console.log(userEmail);
 
   const [cartState, setCartState] = useState({ item: [], totalAmount: 0 });
+
   // Adding cart data
   const addItem = (newItem) => {
-    let updatedItem = [...cartState.item];
-    let updatedAmount = cartState.totalAmount;
-
-    const addingItem = async () => {
+    const addingItem = async (preCartState) => {
+      let updatedItem = [...preCartState.item];
+      let updatedAmount = preCartState.totalAmount;
       updatedAmount = updatedAmount + newItem.price * newItem.quantity;
 
-      const cartItemIndex = cartState.item.findIndex(
+      const cartItemIndex = preCartState.item.findIndex(
         (item) => item.title === newItem.title
       );
 
@@ -39,7 +45,7 @@ export const CartContextProvider = (props) => {
         // console.log('not same');
         try {
           const res = await fetch(
-            `https://crudcrud.com/api/30f234359b1645daab190c2c027754b0/cartItem${userEmail}`,
+            `https://crudcrud.com/api/0e136bc1e353421f8fdc588515023762/cartItem${userEmail}`,
             {
               method: 'POST',
               body: JSON.stringify({
@@ -55,17 +61,19 @@ export const CartContextProvider = (props) => {
           );
           const data = await res.json();
           updatedItem = [...updatedItem, data];
+
           setCartState({ item: updatedItem, totalAmount: updatedAmount });
+          return { item: updatedItem, totalAmount: updatedAmount };
         } catch (err) {
           console.log(err.message);
         }
       } else {
         // console.log('same');
         // console.log(cartState.item[cartItemIndex]._id);
-        const newQuantity = (cartState.item[cartItemIndex].quantity += 1);
+        const newQuantity = (updatedItem[cartItemIndex].quantity += 1);
         try {
           await fetch(
-            `https://crudcrud.com/api/30f234359b1645daab190c2c027754b0/cartItem${userEmail}/${cartState.item[cartItemIndex]._id}`,
+            `https://crudcrud.com/api/0e136bc1e353421f8fdc588515023762/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
             {
               method: 'PUT',
               body: JSON.stringify({
@@ -80,21 +88,26 @@ export const CartContextProvider = (props) => {
             }
           );
           updatedItem[cartItemIndex].quantity = newQuantity;
+
           setCartState({ item: updatedItem, totalAmount: updatedAmount });
+          return { item: updatedItem, totalAmount: updatedAmount };
         } catch (err) {
           console.log(err.message);
         }
       }
     };
 
-    addingItem();
+    setCartState((preState) => {
+      return addingItem(preState);
+    });
   };
 
-  const removeItem = (title) => {
-    let updatedItem = [...cartState.item];
-    let updatedAmount = cartState.totalAmount;
 
-    const removingItem = async () => {
+  // removing item from cart
+  const removeItem = (title) => {
+    const removingItem = async (preCartState) => {
+      let updatedItem = [...preCartState.item];
+      let updatedAmount = preCartState.totalAmount;
       const cartItemIndex = updatedItem.findIndex(
         (item) => item.title === title
       );
@@ -102,21 +115,23 @@ export const CartContextProvider = (props) => {
       if (updatedItem[cartItemIndex].quantity === 1) {
         try {
           await fetch(
-            `https://crudcrud.com/api/30f234359b1645daab190c2c027754b0/cartItem${userEmail}/${cartState.item[cartItemIndex]._id}`,
+            `https://crudcrud.com/api/0e136bc1e353421f8fdc588515023762/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
             {
               method: 'DELETE',
             }
           );
           updatedAmount = updatedAmount - updatedItem[cartItemIndex].price;
           updatedItem = updatedItem.filter((item) => item.title !== title);
+
           setCartState({ item: updatedItem, totalAmount: updatedAmount });
+          return { item: updatedItem, totalAmount: updatedAmount };
         } catch (err) {
           console.log(err.message);
         }
       } else {
         try {
           await fetch(
-            `https://crudcrud.com/api/30f234359b1645daab190c2c027754b0/cartItem${userEmail}/${cartState.item[cartItemIndex]._id}`,
+            `https://crudcrud.com/api/0e136bc1e353421f8fdc588515023762/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
             {
               method: 'PUT',
               body: JSON.stringify({
@@ -132,41 +147,50 @@ export const CartContextProvider = (props) => {
           );
           updatedAmount = updatedAmount - updatedItem[cartItemIndex].price;
           updatedItem[cartItemIndex].quantity -= 1;
+          
           setCartState({ item: updatedItem, totalAmount: updatedAmount });
+          return { item: updatedItem, totalAmount: updatedAmount };
         } catch (err) {
           console.log(err.message);
         }
       }
     };
 
-    removingItem();
+    setCartState((preCartState) => {
+      return removingItem(preCartState);
+    });
   };
 
   const purchased = () => {
     alert('Your order has been placed');
 
-    cartState.item.forEach(async (item) => {
-      try {
-        await fetch(
-          `https://crudcrud.com/api/30f234359b1645daab190c2c027754b0/cartItem${userEmail}/${item._id}`,
-          {
-            method: 'DELETE',
-          }
-        );
-      } catch (err) {
-        console.log(err.message);
-      }
+    const purchaseCompleted = (preCartState) => {
+      preCartState.item.forEach(async (item) => {
+        try {
+          await fetch(
+            `https://crudcrud.com/api/0e136bc1e353421f8fdc588515023762/cartItem${userEmail}/${item._id}`,
+            {
+              method: 'DELETE',
+            }
+          );
+        } catch (err) {
+          console.log(err.message);
+        }
+      });
+    };
+
+    setCartState((preCartState) => {
+      purchaseCompleted(preCartState);
+      return { item: [], totalAmount: 0 };
     });
-    setCartState({ item: [], totalAmount: 0 });
   };
 
   // login cart handler
   const loginCartHandler = useCallback(async () => {
     if (userEmail) {
       try {
-        
         const response = await fetch(
-          `https://crudcrud.com/api/30f234359b1645daab190c2c027754b0/cartItem${userEmail}`
+          `https://crudcrud.com/api/0e136bc1e353421f8fdc588515023762/cartItem${userEmail}`
         );
 
         const data = await response.json();
@@ -185,7 +209,11 @@ export const CartContextProvider = (props) => {
         console.log(err.message);
       }
     }
-  },[userEmail]);
+    else {
+      loginCtx.login(JSON.parse(localStorage.getItem('tokenId')));
+      history.replace('/product');
+    }
+  }, [userEmail, loginCtx]);
 
   // logout Cart handler
   const logoutCartHandler = () => {

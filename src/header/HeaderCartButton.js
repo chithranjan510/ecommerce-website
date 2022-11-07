@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 
 import classes from './HeaderCartButton.module.css';
 import Cart from '../cart/Cart';
@@ -11,9 +11,11 @@ const HeaderCartButton = () => {
 
   let cartQuantity = 0;
 
-  cartCtx.item.forEach((item) => {
-    cartQuantity += item.quantity;
-  });
+  if (cartCtx.item) {
+    cartCtx.item.forEach((item) => {
+      cartQuantity += item.quantity;
+    });
+  }
 
   return (
     <React.Fragment>

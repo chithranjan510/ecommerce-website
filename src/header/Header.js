@@ -57,7 +57,7 @@ const Header = () => {
           </ul>
         </nav>
         <div className={classes.button}>
-          <HeaderCartButton />
+            <HeaderCartButton />
         </div>
       </header>
     </React.Fragment>

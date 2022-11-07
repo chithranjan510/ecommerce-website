@@ -10,36 +10,44 @@ const Cart = (props) => {
 
   const cartElements = cartCtx.item;
 
-  const cartItemList = cartElements.map((item) => (
-    <CartItem key={Math.random().toString()} item={item} />
-  ));
+  let cartItemList = [];
+  let totalAmount = 0;
+
+  if (cartCtx.item) {
+    cartItemList = cartElements.map((item) => (
+      <CartItem key={Math.random().toString()} item={item} />
+    ));
+
+    totalAmount = cartCtx.totalAmount.toFixed(2);
+  }
 
   const purchaseHandler = () => {
     cartCtx.purchased();
   };
 
-  const cartItem = 
-      <div className={classes.overlay}>
-        <span className={classes.title}>CART</span>
-        <button className={classes.delete} onClick={props.onClick}>
-          X
-        </button>
-        <div className={classes.heading}>
-          <span className={classes.item}>ITEM</span>
-          <span className={classes.price}>PRICE</span>
-          <span className={classes.quantity}>QUANTITY</span>
-        </div>
-        {cartItemList}
-        <div className={classes.total}>
-          <span>Total</span>
-          <div>${cartCtx.totalAmount.toFixed(2)}</div>
-        </div>
-        {cartCtx.item.length > 0 && (
-          <button className={classes.button} onClick={purchaseHandler}>
-            PURCHASE
-          </button>
-        )}
+  const cartItem = (
+    <div className={classes.overlay}>
+      <span className={classes.title}>CART</span>
+      <button className={classes.delete} onClick={props.onClick}>
+        X
+      </button>
+      <div className={classes.heading}>
+        <span className={classes.item}>ITEM</span>
+        <span className={classes.price}>PRICE</span>
+        <span className={classes.quantity}>QUANTITY</span>
       </div>
+      {cartItemList}
+      <div className={classes.total}>
+        <span>Total</span>
+        <div>${totalAmount}</div>
+      </div>
+      {cartItemList.length > 0 && (
+        <button className={classes.button} onClick={purchaseHandler}>
+          PURCHASE
+        </button>
+      )}
+    </div>
+  );
 
   const root = document.getElementById('cartModal');
 
