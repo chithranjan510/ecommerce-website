@@ -25,33 +25,44 @@ const Cart = (props) => {
     cartCtx.purchased();
   };
 
-  const cartItem = (
-    <div className={classes.overlay}>
-      <span className={classes.title}>CART</span>
-      <button className={classes.delete} onClick={props.onClick}>
-        X
-      </button>
-      <div className={classes.heading}>
-        <span className={classes.item}>ITEM</span>
-        <span className={classes.price}>PRICE</span>
-        <span className={classes.quantity}>QUANTITY</span>
-      </div>
-      {cartItemList}
-      <div className={classes.total}>
-        <span>Total</span>
-        <div>${totalAmount}</div>
-      </div>
-      {cartItemList.length > 0 && (
-        <button className={classes.button} onClick={purchaseHandler}>
-          PURCHASE
+  const Cart = () => {
+    return (
+      <div className={classes.overlay}>
+        <span className={classes.title}>CART</span>
+        <button className={classes.delete} onClick={props.onClick}>
+          X
         </button>
-      )}
-    </div>
-  );
+        <div className={classes.heading}>
+          <span className={classes.item}>ITEM</span>
+          <span className={classes.price}>PRICE</span>
+          <span className={classes.quantity}>QUANTITY</span>
+        </div>
+        {cartItemList}
+        <div className={classes.total}>
+          <span>Total</span>
+          <div>${totalAmount}</div>
+        </div>
+        {cartItemList.length > 0 && (
+          <button className={classes.button} onClick={purchaseHandler}>
+            PURCHASE
+          </button>
+        )}
+      </div>
+    );
+  };
+
+  const BackDrop = () => {
+    return <div className={classes.backDrop} onClick={props.onClick}></div>;
+  };
 
   const root = document.getElementById('cartModal');
 
-  return ReactDOM.createPortal(cartItem, root);
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(<Cart />, root)}
+      {ReactDOM.createPortal(<BackDrop />, root)}
+    </React.Fragment>
+  );
 };
 
 export default Cart;

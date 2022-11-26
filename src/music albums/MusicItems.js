@@ -14,7 +14,7 @@ const MusicItems = (props) => {
     title: props.item.title,
     imageUrl: props.item.imageUrl,
     price: props.item.price,
-    quantity: 1
+    quantity: 1,
   };
 
   const addingItemToCartHandler = (item) => {
@@ -36,18 +36,22 @@ const MusicItems = (props) => {
   return (
     <div className={classes.div}>
       <h2>{props.item.title}</h2>
-      <Link to={`/product/${props.item.title}`}>
-        <img
-          src={props.item.imageUrl}
-          alt='Music Album'
-          onClick={productDetailHandler.bind(null, productDetail)}
+      <div className={classes.image}>
+        <Link to={`/product/${props.item.title}`}>
+          <img
+            src={props.item.imageUrl}
+            alt='Music Album'
+            onClick={productDetailHandler.bind(null, productDetail)}
+          />
+        </Link>
+      </div>
+      <div className={classes.detail}>
+        <span>${props.item.price}</span>
+        <Button
+          title='ADD TO CART'
+          onClick={addingItemToCartHandler.bind(null, product)}
         />
-      </Link>
-      <span>${props.item.price}</span>
-      <Button
-        title='ADD TO CART'
-        onClick={addingItemToCartHandler.bind(null, product)}
-      />
+      </div>
     </div>
   );
 };

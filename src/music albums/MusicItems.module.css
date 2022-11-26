@@ -1,44 +1,49 @@
 .div {
-    /* border: 2px solid black; */
-    flex-basis: 40%;
-    margin-bottom: 50px;
+  flex-basis: 40%;
+  margin-bottom: 50px;
 }
 
-.div img{
-    display: block;
-    margin: auto;
-    margin-bottom: 60px;
-    object-fit: cover;
-    transition: transform 0.2s;
+.div .image {
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.div img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 2s;
 }
 
 .div img:hover {
-    transform: scale(110%);
+  transform: scale(140%);
 }
 
 .div h2 {
-    text-align: center;
-    font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.div .detail {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 30px;
 }
 
 .div span {
-    text-align: left;
-    padding: 10px 20px 10px 20px;
-    border: 2px solid orange;
-    border-radius: 5px;
-    margin-left: -120px;
+  padding: 10px 20px 10px 20px;
+  border: 2px solid orange;
+  border-radius: 5px;
 }
 
 .div button {
-    display: inline;
-    float: right;
-    margin-right: 70px;
-    margin-bottom: 30px;
-    margin-top: -10px;
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .div button:hover {
-    background-color: orange;
-    color: black;
+  background-color: orange;
+  color: black;
 }

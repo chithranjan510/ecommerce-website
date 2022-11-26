@@ -1,4 +1,4 @@
-import React, { useContext, Suspense } from 'react';
+import React, { useContext, Suspense, useEffect } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
 import './App.css';
@@ -14,6 +14,7 @@ import { ShowCartContextProvider } from './store/showCart-context';
 import { ProductContextProvider } from './store/product-context';
 import loginContext from './store/login-context';
 import LoadingSpinner from './UI/LoadingSpinner';
+import cartContext from './store/cart-Context';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const Store = React.lazy(() => import('./pages/Store'));
@@ -24,6 +25,14 @@ const ProductDetail = React.lazy(() => import('./pages/ProductDetail'));
 
 function App() {
   const loginCtx = useContext(loginContext);
+  const cartCtx = useContext(cartContext);
+
+  const loginCartHandler = cartCtx.loginCartHandler;
+
+  // fetching cart data on refresh
+  useEffect(() => {
+    loginCartHandler();
+  }, [loginCartHandler]);
 
   const productsArr = [
     {
