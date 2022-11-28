@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import loginContext from './login-context';
 
@@ -17,9 +16,7 @@ const cartContext = React.createContext({
 // useremail from local storage
 
 export const CartContextProvider = (props) => {
-
   const loginCtx = useContext(loginContext);
-  const history = useHistory();
 
   let userEmail;
   if (localStorage.getItem('tokenId')) {
@@ -45,7 +42,7 @@ export const CartContextProvider = (props) => {
         // console.log('not same');
         try {
           const res = await fetch(
-            `https://crudcrud.com/api/462a681fe38845aeadb789c944897ad7/cartItem${userEmail}`,
+            `https://crudcrud.com/api/55433c8cc8a24028900194faf63e1148/cartItem${userEmail}`,
             {
               method: 'POST',
               body: JSON.stringify({
@@ -73,7 +70,7 @@ export const CartContextProvider = (props) => {
         const newQuantity = (updatedItem[cartItemIndex].quantity += 1);
         try {
           await fetch(
-            `https://crudcrud.com/api/462a681fe38845aeadb789c944897ad7/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
+            `https://crudcrud.com/api/55433c8cc8a24028900194faf63e1148/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
             {
               method: 'PUT',
               body: JSON.stringify({
@@ -102,7 +99,6 @@ export const CartContextProvider = (props) => {
     });
   };
 
-
   // removing item from cart
   const removeItem = (title) => {
     const removingItem = async (preCartState) => {
@@ -115,7 +111,7 @@ export const CartContextProvider = (props) => {
       if (updatedItem[cartItemIndex].quantity === 1) {
         try {
           await fetch(
-            `https://crudcrud.com/api/462a681fe38845aeadb789c944897ad7/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
+            `https://crudcrud.com/api/55433c8cc8a24028900194faf63e1148/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
             {
               method: 'DELETE',
             }
@@ -131,7 +127,7 @@ export const CartContextProvider = (props) => {
       } else {
         try {
           await fetch(
-            `https://crudcrud.com/api/462a681fe38845aeadb789c944897ad7/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
+            `https://crudcrud.com/api/55433c8cc8a24028900194faf63e1148/cartItem${userEmail}/${updatedItem[cartItemIndex]._id}`,
             {
               method: 'PUT',
               body: JSON.stringify({
@@ -147,7 +143,7 @@ export const CartContextProvider = (props) => {
           );
           updatedAmount = updatedAmount - updatedItem[cartItemIndex].price;
           updatedItem[cartItemIndex].quantity -= 1;
-          
+
           setCartState({ item: updatedItem, totalAmount: updatedAmount });
           return { item: updatedItem, totalAmount: updatedAmount };
         } catch (err) {
@@ -164,11 +160,11 @@ export const CartContextProvider = (props) => {
   const purchased = () => {
     alert('Your order has been placed');
 
-    const purchaseCompleted = async(preCartState) => {
+    const purchaseCompleted = async (preCartState) => {
       preCartState.item.forEach(async (item) => {
         try {
           await fetch(
-            `https://crudcrud.com/api/462a681fe38845aeadb789c944897ad7/cartItem${userEmail}/${item._id}`,
+            `https://crudcrud.com/api/55433c8cc8a24028900194faf63e1148/cartItem${userEmail}/${item._id}`,
             {
               method: 'DELETE',
             }
@@ -190,37 +186,36 @@ export const CartContextProvider = (props) => {
     if (userEmail) {
       try {
         const response = await fetch(
-          `https://crudcrud.com/api/462a681fe38845aeadb789c944897ad7/cartItem${userEmail}`
+          `https://crudcrud.com/api/55433c8cc8a24028900194faf63e1148/cartItem${userEmail}`
         );
 
         const data = await response.json();
+        if (response.ok) {
+          if (data.length > 0) {
+            let refreshedItem = [];
+            let refreshedAmount = 0;
 
-        if (data.length > 0) {
-          let refreshedItem = [];
-          let refreshedAmount = 0;
-
-          data.forEach((item) => {
-            refreshedItem.push(item);
-            refreshedAmount += item.price * item.quantity;
-          });
-          setCartState({ item: refreshedItem, totalAmount: refreshedAmount });
+            data.forEach((item) => {
+              refreshedItem.push(item);
+              refreshedAmount += item.price * item.quantity;
+            });
+            setCartState({ item: refreshedItem, totalAmount: refreshedAmount });
+          }
+        } else {
+          throw data.error;
         }
       } catch (err) {
         console.log(err.message);
       }
-    }
-    else {
+    } else {
       loginCtx.login(JSON.parse(localStorage.getItem('tokenId')));
-      history.replace('/product');
     }
-  }, [userEmail, loginCtx, history]);
+  }, [userEmail, loginCtx]);
 
   // logout Cart handler
   const logoutCartHandler = () => {
     setCartState({ item: [], totalAmount: 0 });
   };
-
-
 
   const contextValues = {
     item: cartState.item,

@@ -30,9 +30,12 @@ function App() {
   const loginCartHandler = cartCtx.loginCartHandler;
 
   // fetching cart data on refresh
+  const isloggedIn = loginCtx;
   useEffect(() => {
-    loginCartHandler();
-  }, [loginCartHandler]);
+    if (isloggedIn) {
+      loginCartHandler();
+    }
+  }, [loginCartHandler, isloggedIn]);
 
   const productsArr = [
     {

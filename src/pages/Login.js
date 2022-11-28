@@ -45,15 +45,15 @@ const Login = () => {
         },
       });
 
+      const data = await res.json();
+
       if (res.ok) {
-        const data = await res.json();
-        const convertedData = JSON.stringify(data)
+        history.replace('/product');
+        const convertedData = JSON.stringify(data);
         localStorage.setItem('tokenId', convertedData);
         loginCtx.login(data);
-        history.replace('/product');
         cartCtx.loginCartHandler();
       } else {
-        const data = await res.json();
         throw new Error(data.error.message);
       }
     } catch (err) {

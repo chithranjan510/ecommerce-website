@@ -17,8 +17,8 @@ const MusicItems = (props) => {
     quantity: 1,
   };
 
-  const addingItemToCartHandler = (item) => {
-    cartCtx.addItem(item);
+  const addingItemToCartHandler = () => {
+    cartCtx.addItem(product);
   };
 
   const productDetail = {
@@ -29,8 +29,8 @@ const MusicItems = (props) => {
     detail: 'Best album of the year',
   };
 
-  const productDetailHandler = (item) => {
-    productCtx.changeDetail(item);
+  const productDetailHandler = () => {
+    productCtx.changeDetail(productDetail);
   };
 
   return (
@@ -41,7 +41,7 @@ const MusicItems = (props) => {
           <img
             src={props.item.imageUrl}
             alt='Music Album'
-            onClick={productDetailHandler.bind(null, productDetail)}
+            onClick={productDetailHandler}
           />
         </Link>
       </div>
@@ -49,7 +49,7 @@ const MusicItems = (props) => {
         <span>${props.item.price}</span>
         <Button
           title='ADD TO CART'
-          onClick={addingItemToCartHandler.bind(null, product)}
+          onClick={addingItemToCartHandler}
         />
       </div>
     </div>
