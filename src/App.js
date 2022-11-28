@@ -27,12 +27,13 @@ function App() {
   const loginCtx = useContext(loginContext);
   const cartCtx = useContext(cartContext);
 
-  const loginCartHandler = cartCtx.loginCartHandler;
+  const {loginCartHandler} = cartCtx;
+  const {isloggedIn} = loginCtx;
 
   // fetching cart data on refresh
-  const isloggedIn = loginCtx;
   useEffect(() => {
     if (isloggedIn) {
+      console.log('called');
       loginCartHandler();
     }
   }, [loginCartHandler, isloggedIn]);

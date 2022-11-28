@@ -6,6 +6,13 @@ import CartItem from './CartItem';
 import cartContext from '../store/cart-Context';
 
 const Cart = (props) => {
+
+  let userEmail;
+  if (localStorage.getItem('tokenId')) {
+    userEmail = JSON.parse(localStorage.getItem('tokenId')).email;
+    userEmail = userEmail.replace(/[@.]/g, '');
+  }
+
   const cartCtx = useContext(cartContext);
 
   const cartElements = cartCtx.item;
@@ -22,6 +29,20 @@ const Cart = (props) => {
   }
 
   const purchaseHandler = () => {
+
+    cartCtx.item.forEach(async (item) => {
+      try {
+        await fetch(
+          `https://crudcrud.com/api/f0d677283303453eaf46506e76d447a0/cartItem${userEmail}/${item._id}`,
+          {
+            method: 'DELETE',
+          }
+        );
+      } catch (err) {
+        console.log(err.message);
+      }
+    });
+
     cartCtx.purchased();
   };
 

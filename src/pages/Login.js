@@ -3,13 +3,11 @@ import { useHistory } from 'react-router-dom';
 
 import classes from './Login.module.css';
 import loginContext from '../store/login-context';
-import cartContext from '../store/cart-Context';
 
 const Login = () => {
   const [loginAccount, setCreateAccount] = useState(true);
   const history = useHistory();
   const loginCtx = useContext(loginContext);
-  const cartCtx = useContext(cartContext);
   const email = useRef();
   const password = useRef();
 
@@ -52,7 +50,6 @@ const Login = () => {
         const convertedData = JSON.stringify(data);
         localStorage.setItem('tokenId', convertedData);
         loginCtx.login(data);
-        cartCtx.loginCartHandler();
       } else {
         throw new Error(data.error.message);
       }
